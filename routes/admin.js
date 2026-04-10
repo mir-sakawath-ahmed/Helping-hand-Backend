@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { protect, adminOnly } = require("../middleware/auth");
-const Booking = require("../models/Booking");
-const User = require("../models/User");
-const Service = require("../models/Service");
+const Booking = require("../models/booking");
+const User = require("../models/user");
+const Service = require("../models/service");
 
 // Get dashboard stats
 router.get("/dashboard", protect, adminOnly, async (req, res) => {
