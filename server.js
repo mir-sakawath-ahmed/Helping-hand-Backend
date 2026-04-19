@@ -10,6 +10,7 @@ const authRoutes = require("./routes/auth");
 const serviceRoutes = require("./routes/services");
 const bookingRoutes = require("./routes/bookings");
 const userRoutes = require("./routes/users");
+const reviewRoutes = require("./routes/reviews");
 
 const app = express();
 
@@ -24,9 +25,11 @@ app.use("/api/services", serviceRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/reviews", reviewRoutes);
 app.get("/", (req, res) => {
   res.json({ message: "Home Services API is running!", version: "1.0.0" });
 });
+
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "Route not found" });
