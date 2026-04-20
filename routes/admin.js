@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { protect, adminOnly } = require("../middleware/auth");
-const Booking = require("../models/booking");
-const User = require("../models/user");
-const Service = require("../models/service");
-
-// Get dashboard stats
+const Booking = require("../models/Booking");
+const User = require("../models/User");
+const Service = require("../models/Service");
 router.get("/dashboard", protect, adminOnly, async (req, res) => {
   try {
     const totalUsers = await User.countDocuments({ role: "user" });
@@ -33,7 +31,6 @@ router.get("/dashboard", protect, adminOnly, async (req, res) => {
   }
 });
 
-// Get all bookings
 router.get("/bookings", protect, adminOnly, async (req, res) => {
   try {
     const bookings = await Booking.find()
@@ -46,7 +43,6 @@ router.get("/bookings", protect, adminOnly, async (req, res) => {
   }
 });
 
-// Update booking status
 router.put("/bookings/:id", protect, adminOnly, async (req, res) => {
   try {
     const booking = await Booking.findByIdAndUpdate(
@@ -61,7 +57,6 @@ router.put("/bookings/:id", protect, adminOnly, async (req, res) => {
   }
 });
 
-// Get all users
 router.get("/users", protect, adminOnly, async (req, res) => {
   try {
     const users = await User.find().select("-password").sort({ createdAt: -1 });
@@ -71,7 +66,6 @@ router.get("/users", protect, adminOnly, async (req, res) => {
   }
 });
 
-// Get all services
 router.get("/services", protect, adminOnly, async (req, res) => {
   try {
     const services = await Service.find().sort({ createdAt: -1 });
@@ -81,7 +75,6 @@ router.get("/services", protect, adminOnly, async (req, res) => {
   }
 });
 
-// Create service
 router.post("/services", protect, adminOnly, async (req, res) => {
   try {
     const service = await Service.create(req.body);
@@ -91,7 +84,6 @@ router.post("/services", protect, adminOnly, async (req, res) => {
   }
 });
 
-// Delete service
 router.delete("/services/:id", protect, adminOnly, async (req, res) => {
   try {
     const service = await Service.findByIdAndDelete(req.params.id);
