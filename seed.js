@@ -51,7 +51,14 @@ const seedDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB Connected");
-    await Service.deleteMany();
+
+    // Check if services already exist — don't delete them
+    const existing = await Service.countDocuments();
+    if (existing > 0) {
+      console.log(`✅ ${existing} services already exist — skipping seed`);
+      process.exit(0);
+    }
+
     await Service.insertMany(services);
     console.log(`✅ ${services.length} services seeded successfully!`);
     process.exit(0);
