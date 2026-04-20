@@ -10,6 +10,7 @@ const bookingRoutes = require("./routes/bookings");
 const userRoutes = require("./routes/users");
 const adminRoutes = require("./routes/admin");
 const reviewRoutes = require("./routes/reviews");
+const workerRoutes = require("./routes/workers");
 const app = express();
 
 connectDB();
@@ -24,6 +25,8 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/reviews", reviewRoutes); 
+app.use("/api/workers", workerRoutes);
+
 
 app.get("/", (req, res) => {
   res.json({ message: "Home Services API is running!", version: "1.0.0" });
